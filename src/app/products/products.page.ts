@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
-
+import { LoadingService } from '../_services/loading.service';
 
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
@@ -26,7 +26,8 @@ export class ProductsPage implements OnInit {
 
   constructor(public alertCtrl: AlertController,
               public navCtrl: NavController, 
-  	          public toastCtrl: ToastController, 
+              public toastCtrl: ToastController,
+              public loading: LoadingService, 
   	          public http: HttpClient, ) {  
 
     this.page = 1;
@@ -45,7 +46,26 @@ export class ProductsPage implements OnInit {
 
 
   ngOnInit() {
+     
+    this.loading.present("Loading Products, Please wait");
+    this.WooCommerce.get('products', {'page': this.page })
+    .then( (response) => {
 
+        console.log("Products: ", response.data);
+        
+        this.products = response.data;
+        this.loading.dismiss();
+
+    })
+    .catch((error) => {
+        console.log("Error Data:", error.response.data);
+        this.loading.dismiss();
+
+    })
+    .finally(() => {
+       
+        
+    });
     
   }
 
