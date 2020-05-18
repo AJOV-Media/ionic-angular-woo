@@ -36,9 +36,7 @@ export class ProductsPage implements OnInit {
       consumerKey:  environment.consumerKey,
       consumerSecret:  environment.consumerSecret,
       version: "wc/v3",
-      //queryStringAuth: true,
-      /*verifySsl: false,
-       version: 'wc/v2', // WooCommerce WP REST API version*/
+      verifySsl: environment.verifySSL,
       queryStringAuth: true  
     }); 
 
