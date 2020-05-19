@@ -8,13 +8,13 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'products',
-        children: [
-          {
-            path: '',
-            loadChildren: '../products/products.module#ProductsPageModule'
-          }
-        ]
+        path: '',
+        redirectTo: '/tabs/about',
+        pathMatch: 'full',
+      },
+      {
+        path: 'about',
+        loadChildren: () => import('../about/about.module').then(m => m.AboutPageModule)
       },
       {
         path: 'tab1',

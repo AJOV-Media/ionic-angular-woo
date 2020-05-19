@@ -69,4 +69,74 @@ export class ProductsPage implements OnInit {
     
   }
 
+  async showToastMessage(msg: string, pos: any, col: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: pos,
+      color: col,
+    });
+    toast.present();
+    //Todo create interceptor
+  }
+
+  loadMoreProducts(event){
+    this.page++;
+
+    this.WooCommerce.get('products', {'page': this.page })
+      .then( (response) => {
+
+          let temp = this.products;
+          this.products = this.products.concat(response.data);
+          event.complete();
+
+          if(temp.length < 10) {
+              event.enable(false);
+
+             this.showToastMessage('No More Products!!', 'top', 'danger');
+
+          }
+
+      })
+      .catch((error) => {
+          console.log("Error Data:", error.response.data);
+          
+          event.complete();
+
+      })
+      .finally(() => {
+         
+          
+      });
+  }
+
+  mapImage(image){
+
+    let imagePath = "";
+
+    if(image === undefined){
+     // console.log("No Image");
+      imagePath = "noimagepath";
+    } else {
+      //Get only featured image
+
+      let imageName = image.src.split('/').slice(-1)[0];
+      let imageExplode = imageName.split('.');
+      let imageRename = imageExplode[0]+'-100x100.'+imageExplode[1];
+
+      let index = image.src.split('/').indexOf(imageName);
+
+      let urlArray = image.src.split('/');
+
+      urlArray.splice(index, 1); 
+
+      let finalUrl = urlArray.join('/') + '/' + imageRename;
+
+      imagePath =  finalUrl;     
+
+    }
+
+    return imagePath;
+  }
+
 }
