@@ -13,6 +13,10 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'products',
+        loadChildren: () => import('../products/products.module').then(m => m.ProductsPageModule)
+      },
+      {
         path: 'about',
         loadChildren: () => import('../about/about.module').then(m => m.AboutPageModule)
       },
