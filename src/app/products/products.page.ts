@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import {  AlertController, ToastController } from '@ionic/angular';
 
 import { LoadingService } from '../_services/loading.service';
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import WooCommerceRestApi from "woocommerce-api";
 
 @Component({
   selector: 'app-products',
@@ -38,9 +38,9 @@ export class ProductsPage implements OnInit {
   }
 
     ngOnInit() { 
-      console.log(environment.apiUrl);
+      
       this.loading.present("Loading Products, Please wait");
-      this.WooCommerce.get('products', {'page': this.page })
+      this.WooCommerce.getAsync('products'+ "&page=" + this.page)
       .then( (response) => {
 
           console.log("Products: ", response.data);
