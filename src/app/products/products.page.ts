@@ -31,6 +31,8 @@ export class ProductsPage implements OnInit {
         consumerKey:  environment.consumerKey,
         consumerSecret:  environment.consumerSecret,
         version: "wc/v3",
+        wpAPI: true,
+        wpAPIPrefix: "wp-json",
         verifySsl: environment.verifySSL,
         queryStringAuth: true  
       }); 
