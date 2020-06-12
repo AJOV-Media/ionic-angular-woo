@@ -42,23 +42,17 @@ export class ProductsPage implements OnInit {
     ngOnInit() { 
       
       this.loading.present("Loading Products, Please wait");
-      this.WooCommerce.getAsync('products'+ "&page=" + this.page)
+      this.WooCommerce.getAsync('products'+ "?page=" + this.page)
       .then( (response) => {
 
-          console.log("Products: ", response.data);
-          
-          this.products = response.data;
-          this.loading.dismiss();
-
+          console.log("Products: ", JSON.parse(response.body));
+          this.products = JSON.parse(response.body);
       })
       .catch((error) => {
           console.log("Error Data:", error.response.data);
-          this.loading.dismiss();
-
       })
       .finally(() => {
-         
-          
+        this.loading.dismiss();
       });
     }
 

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://woocommerce.local:8090/',
-  verifySSL: false,
+  apiUrl: 'https://woocommerce.local:8091/',
+  verifySSL: true,
   consumerKey: 'ck_e69ffab389c5ab9957b0f3e67a0398047f9d62d9',
   consumerSecret: 'cs_30d030a4f3d6a1e132a9b0bdb8fc35f0b81171c7',
 };
