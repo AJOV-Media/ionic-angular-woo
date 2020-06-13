@@ -15,6 +15,7 @@ import WooCommerceRestApi from "woocommerce-api";
 export class ProductsPage implements OnInit {
 
   WooCommerce: any;
+  moreProducts: any[];
   products: any[];
   page: number;
   category: any;
@@ -40,20 +41,7 @@ export class ProductsPage implements OnInit {
   }
 
     ngOnInit() { 
-      
-      this.loading.present("Loading Products, Please wait");
-      this.WooCommerce.getAsync('products'+ "?page=" + this.page)
-      .then( (response) => {
-
-          console.log("Products: ", JSON.parse(response.body));
-          this.products = JSON.parse(response.body);
-      })
-      .catch((error) => {
-          console.log("Error Data:", error.response.data);
-      })
-      .finally(() => {
-        this.loading.dismiss();
-      });
+      this.loadMoreProducts(null); 
     }
 
     async showToastMessage(msg: string, pos: any, col: string) {
@@ -93,32 +81,41 @@ export class ProductsPage implements OnInit {
   }
 
   loadMoreProducts(event){
-    this.page++;
 
-    this.WooCommerce.get('products', {'page': this.page })
-      .then( (response) => {
+        if(event == null) {
+          this.moreProducts = [];
+        }
+        else {
+          this.page++;
+        }
+        this.loading.present("Loading Products, Please wait");  
 
-          let temp = this.products;
-          this.products = this.products.concat(response.data);
-          event.complete();
+        this.WooCommerce.getAsync('products'+ "?page=" + this.page)
+          .then( (response) => {
 
-          if(temp.length < 10) {
-              event.enable(false);
+              let temp = JSON.parse(response.body).length;
+              this.moreProducts = this.moreProducts.concat(JSON.parse(response.body));
+                        
+              if(temp < 10) {
+                event.target.disabled = true; //Disable the infinite scroll
+                this.showToastMessage('No More Products!!', 'top', 'danger');
+              } else {
+                this.showToastMessage(temp + ' Products Loaded!!', 'bottom', 'success');
+              }
 
-             this.showToastMessage('No More Products!!', 'top', 'danger');
+          })
+          .catch((error) => {
+              console.log("Error Data:", error);
+          })
+          .finally(() => {
+            if(event != null) {
+               event.target.complete();
+            }   
+            this.loading.dismiss();
+          });
+   
 
-          }
-
-      })
-      .catch((error) => {
-          console.log("Error Data:", error.response.data);
-          event.complete();
-
-      })
-      .finally(() => {
-         
-          
-      });
+    
 
   }
 
@@ -127,11 +124,9 @@ export class ProductsPage implements OnInit {
     let imagePath = "";
 
     if(image === undefined){
-     // console.log("No Image");
       imagePath = "noimagepath";
     } else {
       //Get only featured image
-
       let imageName = image.src.split('/').slice(-1)[0];
       let imageExplode = imageName.split('.');
       let imageRename = imageExplode[0]+'-100x100.'+imageExplode[1];

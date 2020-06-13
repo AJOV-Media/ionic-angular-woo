@@ -12,7 +12,7 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let product of products" text-wrap (click)="openProductPage(product.id)">
+    <ion-item *ngFor="let product of moreProducts" text-wrap (click)="openProductPage(product.id)">
       <ion-thumbnail item-left>
         <img [src]="mapImage(product.images[0])" />
       </ion-thumbnail>      
