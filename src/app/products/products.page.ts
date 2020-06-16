@@ -2,7 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 
-import {  AlertController, ToastController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 
 import { LoadingService } from '../_services/loading.service';
 import WooCommerceRestApi from "woocommerce-api";
@@ -21,6 +21,7 @@ export class ProductsPage implements OnInit {
   category: any;
 
   constructor(public alertCtrl: AlertController,
+              public navCtrl: NavController,
               public toastCtrl: ToastController,
               public loading: LoadingService, 
              ) {
@@ -144,6 +145,10 @@ export class ProductsPage implements OnInit {
     }
 
     return imagePath;
+  }
+
+  openProductPage(product){
+    this.navCtrl.navigateForward('/tabs/product-details/'+product);
   }
 
 }
