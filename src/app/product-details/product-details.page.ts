@@ -52,27 +52,23 @@ export class ProductDetailsPage implements OnInit  {
 
         this.loading.present("Loading Product, Please wait");
        
-        this.WooCommerce.getAsync("products/" + this.idProduct + "/reviews").then( (data) => {
-            //console.log(JSON.parse(data.body));
+         this.WooCommerce.getAsync("products/" + this.idProduct + "/reviews").then( (data) => {
+            console.log(JSON.parse(data.body));
             this.reviews = JSON.parse(data.body);
-            console.log(this.reviews);
+            //console.log(this.reviews);
           },(err) => {
             console.log(err);
-          }) 
+          })  
        
           this.WooCommerce.getAsync('products/'+this.idProduct)
           .then( (response) => {
-              console.log("Product: ", response.data);
-              this.product = response.data; 
-              this.loading.dismiss();
+              this.product = JSON.parse(response.body); 
           })
           .catch((error) => {
               console.log("Error Data:", error.response.data);
-              this.loading.dismiss();
           })
           .finally(() => {
-             
-              
+            this.loading.dismiss();
           });  
 
     }
