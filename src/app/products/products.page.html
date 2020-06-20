@@ -9,9 +9,9 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content > 
 
-  <ion-list>
+  <ion-list >
     <ion-item *ngFor="let product of moreProducts" text-wrap (click)="openProductPage(product.id)">
       <ion-thumbnail item-left>
         <img [src]="mapImage(product.images[0])" />
