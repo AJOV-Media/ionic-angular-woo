@@ -36,4 +36,15 @@
       </ion-item>
     </ion-menu-toggle>
   </ion-list>
+  <ion-list>
+    <ion-menu-toggle auto-hide="false">
+      <ion-item-divider color="danger"> Categories </ion-item-divider>
+
+      <ion-item *ngFor="let category of categories">
+        <ion-icon name="shirt-outline" slot="start" large></ion-icon>
+        <h4>{{ category.name }}</h4>
+        <p>{{ category.description }}</p>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
 </ion-content>
