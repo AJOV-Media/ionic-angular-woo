@@ -1,57 +1,52 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { TabsPage } from "./tabs.page";
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: "tabs",
     component: TabsPage,
     children: [
       {
-        path: '',
-        redirectTo: '/tabs/about',
-        pathMatch: 'full',
+        path: "products",
+        loadChildren: () =>
+          import("../products/products.module").then(
+            (m) => m.ProductsPageModule
+          ),
       },
       {
-        path: 'products',
-        loadChildren: () => import('../products/products.module').then(m => m.ProductsPageModule)
+        path: "product-details/:id",
+        loadChildren: () =>
+          import("../product-details/product-details.module").then(
+            (m) => m.ProductDetailsPageModule
+          ),
       },
       {
-        path: 'product-details/:id',
-        loadChildren: () => import('../product-details/product-details.module').then(m => m.ProductDetailsPageModule)
+        path: "about",
+        loadChildren: () =>
+          import("../about/about.module").then((m) => m.AboutPageModule),
       },
       {
-        path: 'about',
-        loadChildren: () => import('../about/about.module').then(m => m.AboutPageModule)
+        path: "contact",
+        loadChildren: () =>
+          import("../contact/contact.module").then((m) => m.ContactPageModule),
       },
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: "",
+        redirectTo: "products",
+        pathMatch: "full",
       },
-      {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
-      {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+    ],
   },
   {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    path: "",
+    redirectTo: "/tabs/products",
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class TabsPageRoutingModule {}
