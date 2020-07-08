@@ -13,12 +13,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openCart()">
-      <ion-icon name="cart"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
   <ion-card>
     <ion-slides pager="true" [options]="slideOpts">
       <ion-slide *ngFor="let image of product.images">
