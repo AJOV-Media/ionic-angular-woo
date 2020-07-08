@@ -74,6 +74,10 @@ export class ProductDetailsPage implements OnInit {
       });
   }
 
+  productListing() {
+    this.router.navigateByUrl("/tabs/products");
+  }
+
   addToCart(productId) {
     let retrieveCartObjects;
 
