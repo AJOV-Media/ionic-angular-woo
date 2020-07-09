@@ -6,5 +6,19 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./floating-cart.component.scss"],
 })
 export class FloatingCartComponent implements OnInit {
-  ngOnInit() {}
+  cartCount: number = 0;
+
+  setCartCount = () => {
+    let retrieveCartObjects;
+
+    retrieveCartObjects = localStorage.getItem("wooReactCart");
+    let cartObjects = JSON.parse(retrieveCartObjects || "[]");
+
+    if (cartObjects.length > 0) {
+      this.cartCount = cartObjects.length;
+    }
+  };
+  ngOnInit() {
+    this.setCartCount();
+  }
 }
