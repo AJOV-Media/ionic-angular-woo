@@ -11,7 +11,7 @@ export class FloatingCartComponent implements OnInit {
   setCartCount = () => {
     let retrieveCartObjects;
 
-    retrieveCartObjects = localStorage.getItem("wooReactCart");
+    retrieveCartObjects = localStorage.getItem("wooAngularCart");
     let cartObjects = JSON.parse(retrieveCartObjects || "[]");
 
     if (cartObjects.length > 0) {
