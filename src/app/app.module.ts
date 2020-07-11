@@ -2,8 +2,8 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 
-import { MenuComponent } from "./menu/menu.component";
-import { FloatingCartComponent } from "./floating-cart/floating-cart.component";
+import { MenuComponent } from "./components/menu/menu.component";
+import { FloatingCartComponent } from "./components/floating-cart/floating-cart.component";
 
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
