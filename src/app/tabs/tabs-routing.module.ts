@@ -32,6 +32,11 @@ const routes: Routes = [
           import("../contact/contact.module").then((m) => m.ContactPageModule),
       },
       {
+        path: "cart",
+        loadChildren: () =>
+          import("../cart/cart.module").then((m) => m.CartPageModule),
+      },
+      {
         path: "",
         redirectTo: "products",
         pathMatch: "full",

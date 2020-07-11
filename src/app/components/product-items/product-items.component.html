@@ -1,3 +1,24 @@
-<p>
-  product-items works!
-</p>
+<ion-list>
+  <ion-item
+    *ngFor="let product of moreProducts"
+    text-wrap
+    (click)="openProductPage(product.id)"
+  >
+    <ion-thumbnail item-left>
+      <img [src]="mapImage(product.images[0])" />
+    </ion-thumbnail>
+    <ion-label style="margin-left: 20px;">
+      <h2>{{ product.name }}</h2>
+      <h3 [innerHTML]="product.short_description.substr(0, 11) + '...'"></h3>
+      <ion-chip outline color="dark">
+        <ion-icon name="cash"></ion-icon>
+        <ion-label [innerHTML]="product.price_html"></ion-label>
+        <ion-icon name="pricetag"></ion-icon>
+      </ion-chip>
+    </ion-label>
+
+    <ion-button size="large">
+      <ion-icon slot="icon-only" name="open"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-list>
