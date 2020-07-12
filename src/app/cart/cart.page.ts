@@ -25,8 +25,12 @@ export class CartPage implements OnInit {
       verifySsl: environment.verifySSL,
       queryStringAuth: true,
     });
+
+    this.products = [];
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCartProducts();
+  }
 
   getCartProducts() {
     let retrieveCartObjects;
