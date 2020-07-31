@@ -1,0 +1,161 @@
+<ion-header color="dark">
+
+  <ion-toolbar>
+     <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Signup</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content color="dark" padding>
+
+  <ion-list>
+      <ion-item-divider color="danger"> Personal Details </ion-item-divider>
+
+      <ion-item>
+        <ion-label>First name </ion-label>
+        <ion-input type="text" [(ngModel)]="newUser.first_name" ></ion-input>
+      </ion-item>
+
+    <ion-item>
+      <ion-label>Last name </ion-label>
+      <ion-input type="text" [(ngModel)]="newUser.last_name" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email </ion-label>
+      <ion-input type="email" [(ngModel)]="newUser.email" (ionBlur)="checkEmail()"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Username </ion-label>
+      <ion-input type="text" [(ngModel)]="newUser.username" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password </ion-label>
+      <ion-input type="password" [(ngModel)]="newUser.password" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Confirm Password </ion-label>
+      <ion-input type="password" [(ngModel)]="newUser.confirm_password" ></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="danger"> Billing Details </ion-item-divider>
+
+    <ion-item>
+      <ion-label>Address Line 1 </ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newUser.billing_address.address_1" ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Address Line 2 </ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newUser.billing_address.address_2" ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Country </ion-label>
+      <ion-select [(ngModel)]="newUser.billing_address.country">
+         <ion-select-option value="PH">Philippines</ion-select-option>
+         <ion-select-option value="JP">Japan</ion-select-option>
+         <ion-select-option value="US">USA</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>States </ion-label>
+      <ion-select [(ngModel)]="newUser.billing_address.state">
+        <ion-select-option value="manila">Manila</ion-select-option>
+        <ion-select-option value="qc">QC</ion-select-option>
+        <ion-select-option value="sjdm">SJDM</ion-select-option>
+        <ion-select-option value="samar">Samar</ion-select-option>
+        <ion-select-option value="cebu">Cebu</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>City </ion-label>
+      <ion-input type="text" [(ngModel)]="newUser.billing_address.city" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Postal Code </ion-label>
+      <ion-input type="number" [(ngModel)]="newUser.billing_address.postcode" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Phone </ion-label>
+      <ion-input type="tel" [(ngModel)]="newUser.billing_address.phone" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Same Shipping Details? </ion-label>
+      <ion-checkbox (ionChange)="setBillingToShipping()"></ion-checkbox>
+    </ion-item>
+
+    <ion-item-divider color="danger" *ngIf="!billing_shipping_same"> Shipping Details </ion-item-divider>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>Address Line 1 </ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newUser.shipping.address_1" ></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>Address Line 2 </ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newUser.shipping.address_2" ></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>Country </ion-label>
+      <ion-select [(ngModel)]="newUser.shipping.country">
+        <ion-select-option value="PH">Philippines</ion-select-option>
+        <ion-select-option value="JP">Japan</ion-select-option>
+        <ion-select-option value="US">USA</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>States </ion-label>
+      <ion-select [(ngModel)]="newUser.shipping.state">
+        <ion-select-option value="manila">Manila</ion-select-option>
+        <ion-select-option value="qc">QC</ion-select-option>
+        <ion-select-option value="sjdm">SJDM</ion-select-option>
+        <ion-select-option value="samar">Samar</ion-select-option>
+        <ion-select-option value="cebu">Cebu</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>City </ion-label>
+      <ion-input type="text" [(ngModel)]="newUser.shipping.city" ></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>Postal Code </ion-label>
+      <ion-input type="number" [(ngModel)]="newUser.shipping.postcode" ></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label>Phone </ion-label>
+      <ion-input type="tel" [(ngModel)]="newUser.shipping.phone" ></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+
+
+</ion-content>
+
+ <ion-footer>
+     <ion-toolbar>
+          <ion-button shape="round" expand="full" fill="solid" color="danger" (click)="signup()">
+            <ion-icon name="person-add"></ion-icon>  
+            <label> &nbsp; Signup</label>
+          </ion-button>
+     </ion-toolbar>
+    
+ </ion-footer>
