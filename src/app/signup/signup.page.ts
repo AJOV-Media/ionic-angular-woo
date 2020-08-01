@@ -85,6 +85,48 @@ export class SignupPage implements OnInit {
     alert.present();
   }
 
+  checkEmail = () => {
+    let validEmail = false;
+    let reg = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (reg.test(this.newUser.email)) {
+      this.WooCommerce.getAsync("customers?email=" + this.newUser.email)
+        .then((response) => {
+          let resdetails = JSON.parse(response.body);
+          if (resdetails[0].email) {
+            this.showToastMessage(
+              "This email is not available",
+              "top",
+              "danger"
+            );
+            this.emailAlreadyRegistered = true;
+          }
+        })
+        .catch((error) => {
+          console.log("Error Data:", error.response);
+        })
+        .finally(() => {
+          if (!this.emailAlreadyRegistered) {
+            this.showToastMessage(
+              "Email is available, you can use this email address",
+              "top",
+              "success"
+            );
+          }
+        });
+    } else {
+      validEmail = false;
+
+      this.showToastMessage(
+        "Invalid Email Format. Please check.",
+        "top",
+        "danger"
+      );
+
+      console.log(validEmail);
+    }
+  };
+
   signup = () => {
     let customerData = {
       customer: {},
