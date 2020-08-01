@@ -86,6 +86,62 @@ export class SignupPage implements OnInit {
   }
 
   signup = () => {
-    //call sign up here
+    let customerData = {
+      customer: {},
+    };
+
+    customerData.customer = {
+      email: this.newUser.email,
+      first_name: this.newUser.first_name,
+      last_name: this.newUser.last_name,
+      username: this.newUser.username,
+      password: this.newUser.password,
+      billing: {
+        first_name: this.newUser.first_name,
+        last_name: this.newUser.last_name,
+        company: "",
+        address_1: this.newUser.billing_address.address_1,
+        address_2: this.newUser.billing_address.address_2,
+        city: this.newUser.billing_address.city,
+        state: this.newUser.billing_address.state,
+        postcode: String(this.newUser.billing_address.postcode),
+        country: this.newUser.billing_address.country,
+        email: this.newUser.email,
+        phone: this.newUser.billing_address.phone,
+      },
+      shipping: {
+        first_name: this.newUser.first_name,
+        last_name: this.newUser.last_name,
+        company: "",
+        address_1: this.newUser.shipping.address_1,
+        address_2: this.newUser.shipping.address_2,
+        city: this.newUser.shipping.city,
+        state: this.newUser.shipping.state,
+        postcode: String(this.newUser.shipping.postcode),
+        country: this.newUser.shipping.country,
+      },
+    };
+
+    if (this.billing_shipping_same) {
+      this.newUser.shipping = this.newUser.shipping;
+    }
+
+    // Create a customer
+    this.loading.present("Creating your account, Please wait");
+
+    this.WooCommerce.postAsync("customers", customerData.customer)
+      .then((response) => {
+        console.log(JSON.parse(response));
+        this.showAlertMessage(
+          "Account Created",
+          "Your account has been created successfully, Please verify your account"
+        );
+      })
+      .catch((error) => {
+        this.showToastMessage(error.response.data, "top", "danger");
+      })
+      .finally(() => {
+        this.loading.dismiss();
+      });
   };
 }
