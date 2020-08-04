@@ -1,0 +1,28 @@
+#app-login {
+
+
+	
+}
+
+#animation_container {
+	position:absolute; 
+	margin: 0 auto;
+	left:0;right:0;
+	top:0;bottom:0;
+	height: 200px !important;
+}
+
+#animation_container canvas{
+   position: relative !important;
+   margin: 0 auto !important;
+   height: 200px !important;
+   width: 250px !important;
+}
+
+#dom_overlay_container {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+	height: 200px !important;
+}
