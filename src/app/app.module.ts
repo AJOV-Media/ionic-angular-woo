@@ -5,6 +5,8 @@ import { RouteReuseStrategy } from "@angular/router";
 import { MenuComponent } from "./components/menu/menu.component";
 import { FloatingCartComponent } from "./components/floating-cart/floating-cart.component";
 
+import { HttpClientModule } from "@angular/common/http";
+
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
@@ -15,7 +17,12 @@ import { AppComponent } from "./app.component";
 @NgModule({
   declarations: [AppComponent, MenuComponent, FloatingCartComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,

@@ -52,7 +52,7 @@ export class AuthenticationService {
 
   getUserInfo() {
     return this.http
-      .post<any>(environment.apiUrl + `wp-json/wpuser/v1/loggedinuser`, {})
+      .post<any>(`${environment.apiUrl}wp-json/wpuser/v1/loggedinuser`, {})
       .pipe(
         map((user) => {
           this.currentUserFullinfoSubject.next(user.data);
@@ -68,7 +68,7 @@ export class AuthenticationService {
 
     return this.http
       .post<any>(
-        environment.apiUrl + `wp-json/jwt-auth/v1/token`,
+        `${environment.apiUrl}wp-json/jwt-auth/v1/token`,
         params,
         this.httpPostOptions
       )
