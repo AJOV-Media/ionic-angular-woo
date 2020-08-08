@@ -63,8 +63,7 @@ export class SignupPage implements OnInit {
   async showAlertMessage(title: string, msg: string) {
     const alert = await this.alertCtrl.create({
       header: "Account Created",
-      message:
-        "Your account has been created successfully! Please login to proceed.",
+      message: msg,
       buttons: [
         {
           text: "Cancel",
@@ -122,9 +121,28 @@ export class SignupPage implements OnInit {
         "top",
         "danger"
       );
-
-      console.log(validEmail);
     }
+  };
+
+  emptyForms = () => {
+    this.newUser.email = "";
+    this.newUser.first_name = "";
+    this.newUser.last_name = "";
+    this.newUser.username = "";
+    this.newUser.password = "";
+    this.newUser.billing_address.address_1 = "";
+    this.newUser.billing_address.address_2 = "";
+    this.newUser.billing_address.city = "";
+    this.newUser.billing_address.state = "";
+    this.newUser.billing_address.postcode = "";
+    this.newUser.billing_address.country = "";
+    this.newUser.billing_address.phone = "";
+    this.newUser.shipping.address_1 = "";
+    this.newUser.shipping.address_2 = "";
+    this.newUser.shipping.city = "";
+    this.newUser.shipping.state = "";
+    this.newUser.shipping.postcode = "";
+    this.newUser.shipping.country = "";
   };
 
   signup = () => {
@@ -173,14 +191,19 @@ export class SignupPage implements OnInit {
 
     this.WooCommerce.postAsync("customers", customerData.customer)
       .then((response) => {
-        console.log(JSON.parse(response));
-        this.showAlertMessage(
-          "Account Created",
-          "Your account has been created successfully, Please verify your account"
-        );
+        let resdetails = JSON.parse(response.body);
+        console.log(resdetails);
+        if (resdetails.id) {
+          this.showAlertMessage(
+            "Account Created",
+            "Your account has been created successfully, Please verify your account"
+          );
+          this.emptyForms();
+        }
       })
       .catch((error) => {
-        this.showToastMessage(error.response.data, "top", "danger");
+        let resdetails = JSON.parse(error.body);
+        this.showToastMessage(resdetails, "top", "danger");
       })
       .finally(() => {
         this.loading.dismiss();
