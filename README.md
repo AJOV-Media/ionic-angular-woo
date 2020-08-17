@@ -7,7 +7,10 @@
 ## Ionic Setup
 
 if having issues with old npm old modules like woocommerce-api used in this demo just run
-~#node postinstall-script.js~
+
+```bash
+#node postinstall-script.js
+```
 
 ~npm install --save @woocommerce/woocommerce-rest-api~
 
