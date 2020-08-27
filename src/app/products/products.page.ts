@@ -22,6 +22,8 @@ export class ProductsPage implements OnInit {
   moreProducts: any[];
   products: any[];
   page: number;
+  searchKey: string;
+  searchValue: string;
   category: any;
 
   constructor(
@@ -46,8 +48,8 @@ export class ProductsPage implements OnInit {
   }
 
   ngOnInit() {
-    let searchKey = this.route.snapshot.params.searchKey;
-    let searchValue = this.route.snapshot.params.searchValue;
+    this.searchKey = this.route.snapshot.params.searchKey;
+    this.searchValue = this.route.snapshot.params.searchValue;
 
     this.loadMoreProducts(null);
   }
@@ -88,7 +90,7 @@ export class ProductsPage implements OnInit {
     //Todo create interceptor
   }
 
-  loadMoreProducts(event) {
+  loadMoreProducts = (event) => {
     if (event == null) {
       this.moreProducts = [];
     } else {
@@ -96,7 +98,12 @@ export class ProductsPage implements OnInit {
     }
     this.loading.present("Loading Products, Please wait");
 
-    this.WooCommerce.getAsync("products" + "?page=" + this.page)
+    let searchParam = "";
+    if (this.searchKey !== undefined && this.searchValue !== undefined) {
+      searchParam = "&" + this.searchKey + "=" + this.searchValue;
+    }
+
+    this.WooCommerce.getAsync("products" + "?page=" + this.page + searchParam)
       .then((response) => {
         let temp = JSON.parse(response.body).length;
         this.moreProducts = this.moreProducts.concat(JSON.parse(response.body));
@@ -121,7 +128,7 @@ export class ProductsPage implements OnInit {
         }
         this.loading.dismiss();
       });
-  }
+  };
 
   mapImage(image) {
     let imagePath = "";
