@@ -1,5 +1,7 @@
 # ionic-angular-woo
 
+![Initial Output](https://github.com/AJOV-Media/ionic-angular-woo/blob/master/screenshots/woo-angular-design-initial.gif)
+
 ## API used
 
 [Woo Commerce Docker Nginx](https://github.com/AJOV-Media/docker-wordpress-wpjson)
