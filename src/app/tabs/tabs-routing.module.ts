@@ -8,7 +8,14 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: "products",
+        path: "products/",
+        loadChildren: () =>
+          import("../products/products.module").then(
+            (m) => m.ProductsPageModule
+          ),
+      },
+      {
+        path: "products/:searchKey/:searchValue",
         loadChildren: () =>
           import("../products/products.module").then(
             (m) => m.ProductsPageModule
@@ -45,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "/tabs/products",
+    redirectTo: "/tabs/products/",
     pathMatch: "full",
   },
   {
