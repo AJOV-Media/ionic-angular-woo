@@ -10,11 +10,7 @@
       <ion-item>
         <h4 class="subtitle-menu">
           Hi and Welcome
-          {{
-            this.userInfo.user_display_name
-              ? this.userInfo.user_display_name
-              : "Guest"
-          }}
+          {{ loggedIn ? userInfo.user_display_name : "Guest" }}
         </h4>
       </ion-item>
       <ion-item-divider color="danger"> Pages </ion-item-divider>
