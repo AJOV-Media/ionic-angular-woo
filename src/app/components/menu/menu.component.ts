@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
   categories: any[];
   subscriptionAuth: Subscription;
   userInfo: any;
+  loggedIn: boolean;
 
   constructor(private authenticationService: AuthenticationService) {
     this.WooCommerce = new WooCommerceRestApi({
@@ -28,11 +29,14 @@ export class MenuComponent implements OnInit {
       verifySsl: environment.verifySSL,
       queryStringAuth: true,
     });
+
+    this.loggedIn = false;
   }
 
   ngOnInit() {
     if (this.authenticationService.loggedIn) {
       this.userInfo = this.authenticationService.currentUserValue;
+      this.loggedIn = true;
     }
 
     this.WooCommerce.getAsync("products/categories")

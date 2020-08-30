@@ -52,6 +52,7 @@
         [routerLink]="['/login']"
         [class]="'active-item'"
         routerDirection="root"
+        *ngIf="!loggedIn"
       >
         <ion-icon name="log-in" slot="start"></ion-icon>
         <ion-label>Login</ion-label>
@@ -61,22 +62,42 @@
         [routerLink]="['/signup']"
         [class]="'active-item'"
         routerDirection="root"
+        *ngIf="!loggedIn"
       >
         <ion-icon name="clipboard" slot="start"></ion-icon>
         <ion-label>Signup</ion-label>
       </ion-item>
-      <ion-menu-toggle auto-hide="false">
-        <ion-item-divider color="danger"> Categories </ion-item-divider>
 
-        <ion-item
-          *ngFor="let category of categories"
-          [routerLink]="['/tabs/products', 'category', category.id]"
-        >
-          <ion-icon name="shirt-outline" slot="start" large></ion-icon>
-          <h4>{{ category.name }}</h4>
-          <p>{{ category.description }}</p>
-        </ion-item>
-      </ion-menu-toggle>
+      <ion-item
+        [routerLink]="['/myaccount']"
+        [class]="'active-item'"
+        routerDirection="root"
+        *ngIf="loggedIn"
+      >
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>My Account</ion-label>
+      </ion-item>
+
+      <ion-item
+        [routerLink]="['/logoout']"
+        [class]="'active-item'"
+        routerDirection="root"
+        *ngIf="loggedIn"
+      >
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-item>
+
+      <ion-item-divider color="danger"> Categories </ion-item-divider>
+
+      <ion-item
+        *ngFor="let category of categories"
+        [routerLink]="['/tabs/products', 'category', category.id]"
+      >
+        <ion-icon name="shirt-outline" slot="start" large></ion-icon>
+        <h4>{{ category.name }}</h4>
+        <p>{{ category.description }}</p>
+      </ion-item>
     </ion-menu-toggle>
   </ion-list>
 </ion-content>
