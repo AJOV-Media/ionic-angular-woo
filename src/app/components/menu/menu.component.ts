@@ -5,6 +5,7 @@ import { AuthenticationService } from "../../_services";
 
 import WooCommerceRestApi from "woocommerce-api";
 import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-menu",
@@ -18,7 +19,10 @@ export class MenuComponent implements OnInit {
   userInfo: any;
   loggedIn: boolean;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
     this.WooCommerce = new WooCommerceRestApi({
       url: environment.apiUrl,
       consumerKey: environment.consumerKey,
@@ -48,4 +52,10 @@ export class MenuComponent implements OnInit {
       })
       .finally(() => {});
   }
+  logout = () => {
+    this.userInfo = {};
+    this.loggedIn = false;
+    this.authenticationService.logout();
+    this.router.navigate(["/login"]);
+  };
 }
