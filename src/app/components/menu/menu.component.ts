@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 
 import { environment } from "../../../environments/environment";
+import { AuthenticationService } from "../../_services";
 
 import WooCommerceRestApi from "woocommerce-api";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-menu",
@@ -12,8 +14,10 @@ import WooCommerceRestApi from "woocommerce-api";
 export class MenuComponent implements OnInit {
   WooCommerce: any;
   categories: any[];
+  subscriptionAuth: Subscription;
+  userInfo: any;
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
     this.WooCommerce = new WooCommerceRestApi({
       url: environment.apiUrl,
       consumerKey: environment.consumerKey,
@@ -27,6 +31,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authenticationService.loggedIn) {
+      this.userInfo = this.authenticationService.currentUserValue;
+    }
+
     this.WooCommerce.getAsync("products/categories")
       .then((response) => {
         this.categories = JSON.parse(response.body);

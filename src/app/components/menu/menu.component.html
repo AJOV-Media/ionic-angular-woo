@@ -6,6 +6,17 @@
 <ion-content>
   <ion-list>
     <ion-menu-toggle auto-hide="false">
+      <ion-list-header><h1>Woo Angular Demo</h1></ion-list-header>
+      <ion-item>
+        <h4 class="subtitle-menu">
+          Hi and Welcome
+          {{
+            this.userInfo.user_display_name
+              ? this.userInfo.user_display_name
+              : "Guest"
+          }}
+        </h4>
+      </ion-item>
       <ion-item-divider color="danger"> Pages </ion-item-divider>
 
       <ion-item
