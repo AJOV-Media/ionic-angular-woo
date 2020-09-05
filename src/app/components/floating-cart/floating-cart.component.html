@@ -1,6 +1,6 @@
 <ion-fab vertical="center" horizontal="end" slot="fixed">
   <ion-badge color="danger" class="cartCount">{{ cartCount }} </ion-badge>
-  <ion-fab-button (click)="openCart()">
+  <ion-fab-button [routerLink]="['/tabs/cart']">
     <ion-icon name="cart"></ion-icon>
   </ion-fab-button>
 </ion-fab>
