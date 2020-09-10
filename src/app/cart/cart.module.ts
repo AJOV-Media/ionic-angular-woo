@@ -5,10 +5,10 @@ import { FormsModule } from "@angular/forms";
 import { CartPage } from "./cart.page";
 
 import { CartPageRoutingModule } from "./cart-routing.module";
-import { ProductItemsComponent } from "../components/product-items/product-items.component";
+import { ProductCartItemsComponent } from "../components/product-cart-items/product-cart-items.component";
 
 @NgModule({
   imports: [IonicModule, CommonModule, FormsModule, CartPageRoutingModule],
-  declarations: [CartPage, ProductItemsComponent],
+  declarations: [CartPage, ProductCartItemsComponent],
 })
 export class CartPageModule {}
