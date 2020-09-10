@@ -52,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "/tabs/products/",
+    redirectTo: "/tabs/products",
     pathMatch: "full",
   },
 ];
