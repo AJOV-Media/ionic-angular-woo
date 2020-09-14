@@ -38,4 +38,51 @@ export class ProductCartItemsComponent implements OnInit {
 
     return imagePath;
   }
+
+  updateCart = (event, productId) => {
+    const retrieveCartObjects = localStorage.getItem("wooAngularCart");
+    const cartObjects = JSON.parse(retrieveCartObjects || "[]");
+
+    if (cartObjects.length > 0) {
+      let updateCartObject = {};
+      const updatedCartObjects = JSON.parse("[]");
+      let alreadyAdded = false;
+      for (let i = 0; i < cartObjects.length; i++) {
+        if (cartObjects[i].product_id === productId) {
+          //if product id is already on the cart
+          alreadyAdded = true;
+          updateCartObject = {
+            product_id: cartObjects[i].product_id,
+            howMany: Number(event.detail.value),
+          };
+        } else {
+          updateCartObject = {
+            product_id: cartObjects[i].product_id,
+            howMany: cartObjects[i].howMany,
+          };
+        }
+        updatedCartObjects.push(updateCartObject);
+      }
+      if (!alreadyAdded) {
+        updateCartObject = {
+          product_id: productId,
+          howMany: Number(event.detail.value),
+        };
+        updatedCartObjects.push(updateCartObject);
+        alreadyAdded = false;
+      }
+      localStorage.setItem(
+        "wooAngularCart",
+        JSON.stringify(updatedCartObjects)
+      );
+    } else {
+      //only if cart is all empty
+      const addCartObject = {
+        product_id: productId,
+        howMany: Number(event),
+      };
+      cartObjects.push(addCartObject);
+      localStorage.setItem("wooAngularCart", JSON.stringify(cartObjects));
+    }
+  };
 }
