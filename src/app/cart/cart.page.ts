@@ -40,10 +40,13 @@ export class CartPage implements OnInit {
 
     if (cartObjects.length > 0) {
       for (var i = 0; i < cartObjects.length; i++) {
+        let qty = cartObjects[i].howMany;
         this.WooCommerce.getAsync("products/" + cartObjects[i].product_id)
           .then((response) => {
             this.loading.present("Loading Products, Please wait");
-            this.products = this.products.concat(JSON.parse(response.body));
+            let bodyProducts = JSON.parse(response.body);
+            bodyProducts.qty = qty;
+            this.products = this.products.concat(bodyProducts);
           })
           .catch((error) => {
             console.log("Error Data:", error);

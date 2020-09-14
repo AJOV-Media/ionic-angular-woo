@@ -19,7 +19,7 @@
         <ion-col size="1" class="vertical-align-content">
           <ion-input
             type="number"
-            value="1"
+            [value]="product.qty"
             class="qty"
             (ionChange)="updateCart($event, product.id)"
           ></ion-input>
