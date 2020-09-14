@@ -1,3 +1,7 @@
+ion-grid {
+  height: 100%;
+  justify-content: center;
+}
 .descriptionPage {
   h2 {
     font-size: 16px;
@@ -7,4 +11,12 @@
   h3 {
     font-size: 14px;
   }
+}
+.qty {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+}
+.vertical-align-content {
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
 }
