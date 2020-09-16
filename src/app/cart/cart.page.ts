@@ -13,6 +13,7 @@ import WooCommerceRestApi from "woocommerce-api";
 export class CartPage implements OnInit {
   WooCommerce: any;
   products: any[];
+  totalPrice: number;
 
   constructor(public loading: LoadingService) {
     this.WooCommerce = new WooCommerceRestApi({
@@ -34,6 +35,7 @@ export class CartPage implements OnInit {
 
   getCartProducts() {
     let retrieveCartObjects;
+    this.totalPrice = 0.0;
 
     retrieveCartObjects = localStorage.getItem("wooAngularCart");
     let cartObjects = JSON.parse(retrieveCartObjects || "[]");
@@ -46,6 +48,7 @@ export class CartPage implements OnInit {
             this.loading.present("Loading Products, Please wait");
             let bodyProducts = JSON.parse(response.body);
             bodyProducts.qty = qty;
+            this.totalPrice += qty * bodyProducts.price;
             this.products = this.products.concat(bodyProducts);
           })
           .catch((error) => {

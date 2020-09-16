@@ -7,3 +7,9 @@
 <ion-content [fullscreen]="true">
   <app-product-cart-items [productItems]="products"></app-product-cart-items>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title> Total: ${{ totalPrice.toFixed(2) }}</ion-title>
+  </ion-toolbar>
+</ion-footer>
