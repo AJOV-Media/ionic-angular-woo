@@ -16,12 +16,11 @@ import WooCommerceRestApi from "woocommerce-api";
   styleUrls: ["product-details.page.scss"],
 })
 export class ProductDetailsPage implements OnInit {
-  private _message: string;
-
   WooCommerce: any;
   idProduct: string;
   product: any = {};
   reviews: any[] = [];
+  btnMessage: string = "ADD TO CART";
   qty: number = 1;
 
   constructor(
@@ -53,6 +52,8 @@ export class ProductDetailsPage implements OnInit {
     this.idProduct = this.route.snapshot.paramMap.get("id");
     this.loading.present("Loading Product, Please wait");
 
+    this.getCart(Number(this.idProduct));
+
     this.WooCommerce.getAsync(
       "products/reviews/?product=" + this.idProduct
     ).then(
@@ -77,15 +78,31 @@ export class ProductDetailsPage implements OnInit {
       });
   }
 
-  productListing() {
-    this.router.navigateByUrl("/tabs/products");
-  }
-
-  addToCart(productId) {
-    let retrieveCartObjects;
-
-    retrieveCartObjects = localStorage.getItem("wooAngularCart");
+  getCart = (productId) => {
+    const retrieveCartObjects = localStorage.getItem("wooAngularCart");
     let cartObjects = JSON.parse(retrieveCartObjects || "[]");
+
+    if (cartObjects.length > 0) {
+      for (var i = 0; i < cartObjects.length; i++) {
+        if (cartObjects[i].product_id === productId) {
+          this.qty = cartObjects[i].howMany;
+          this.btnMessage = "UPDATE CART";
+        } else {
+          this.qty = 1;
+          this.btnMessage = "ADD TO CART";
+        }
+      }
+    }
+  };
+
+  productListing = () => {
+    this.router.navigateByUrl("/tabs/products");
+  };
+
+  addToCart = (productId) => {
+    const retrieveCartObjects = localStorage.getItem("wooAngularCart");
+    let cartObjects = JSON.parse(retrieveCartObjects || "[]");
+    let currentQty = this.qty;
 
     if (cartObjects.length > 0) {
       let updateCartObject = {};
@@ -97,7 +114,7 @@ export class ProductDetailsPage implements OnInit {
           alreadyAdded = true;
           updateCartObject = {
             product_id: cartObjects[i].product_id,
-            howMany: 5,
+            howMany: currentQty,
           };
         } else {
           updateCartObject = {
@@ -121,7 +138,7 @@ export class ProductDetailsPage implements OnInit {
       );
     } else {
       //only if cart is all empty
-      let addCartObject = { product_id: productId, howMany: 1 };
+      let addCartObject = { product_id: productId, howMany: currentQty };
       cartObjects.push(addCartObject);
       localStorage.setItem("wooAngularCart", JSON.stringify(cartObjects));
     }
@@ -130,7 +147,7 @@ export class ProductDetailsPage implements OnInit {
       "Added to your cart",
       "Your cart has been updated click the cart icon to display whats in cart."
     );
-  }
+  };
 
   async showToastMessage(msg: string, pos: any, col: string) {
     const toast = await this.toastCtrl.create({
