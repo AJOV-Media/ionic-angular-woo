@@ -51,10 +51,11 @@ export class ProductDetailsPage implements OnInit {
 
   ngOnInit() {
     this.idProduct = this.route.snapshot.paramMap.get("id");
-
     this.loading.present("Loading Product, Please wait");
 
-    this.WooCommerce.getAsync("products/" + this.idProduct + "/reviews").then(
+    this.WooCommerce.getAsync(
+      "products/reviews/?product=" + this.idProduct
+    ).then(
       (data) => {
         console.log(JSON.parse(data.body));
         this.reviews = JSON.parse(data.body);
