@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { AlertController, ToastController } from "@ionic/angular";
 
+import { CartCountService } from "../_services/cart_count.services";
+
 import { LoadingService } from "../_services/loading.service";
 import WooCommerceRestApi from "woocommerce-api";
 
@@ -26,6 +28,7 @@ export class ProductDetailsPage implements OnInit {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public loading: LoadingService,
+    private cartCountService: CartCountService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -150,13 +153,13 @@ export class ProductDetailsPage implements OnInit {
           role: "cancel",
           cssClass: "secondary",
           handler: (blah) => {
-            console.log("Confirm Cancel: blah");
+            this.cartCountService.currentCartCounts();
           },
         },
         {
           text: "Okay",
           handler: () => {
-            console.log("Confirm Okay");
+            this.cartCountService.currentCartCounts();
           },
         },
       ],
