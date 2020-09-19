@@ -57,7 +57,6 @@ export class ProductDetailsPage implements OnInit {
       "products/reviews/?product=" + this.idProduct
     ).then(
       (data) => {
-        console.log(JSON.parse(data.body));
         this.reviews = JSON.parse(data.body);
         //console.log(this.reviews);
       },
