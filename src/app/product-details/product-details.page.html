@@ -35,15 +35,12 @@
         <ion-label [innerHtml]="product.price_html"></ion-label>
       </ion-chip>
     </ion-card-content>
+  </ion-card>
 
-    <ion-button
-      expand="full"
-      fill="solid"
-      color="danger"
-      (click)="addToCart(product.id)"
-    >
-      <ion-icon name="basket"></ion-icon> &nbsp; Add to Cart
-    </ion-button>
+  <ion-card>
+    <ion-card-content>
+      <span [innerHTML]="product.short_description"></span>
+    </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="product.meta_data.length > 0">
@@ -69,7 +66,7 @@
 
       <ion-grid>
         <ion-row *ngFor="let review of reviews">
-          <ion-col col-4>
+          <ion-col size="2">
             <strong>{{review.reviewer_name}}</strong><br />
             <span *ngIf="review.rating >= 1">
               <ion-icon small name="star" color="danger"></ion-icon>
@@ -87,9 +84,31 @@
               <ion-icon small name="star" color="danger"></ion-icon>
             </span>
           </ion-col>
-          <ion-col col-8 [innerHtml]="review.review"> </ion-col>
+          <ion-col size="10" [innerHtml]="review.review"> </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <ion-input type="number" [value]="qty" class="qty"></ion-input>
+        </ion-col>
+        <ion-col size="11">
+          <ion-button
+            expand="full"
+            fill="solid"
+            color="danger"
+            (click)="addToCart(product.id)"
+          >
+            <ion-icon name="basket"></ion-icon> &nbsp; Add to Cart
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
