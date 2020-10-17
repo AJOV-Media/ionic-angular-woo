@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>Products</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="searchTheString($event)" debounce="2000" ></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>

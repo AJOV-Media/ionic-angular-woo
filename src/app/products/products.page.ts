@@ -24,6 +24,7 @@ export class ProductsPage implements OnInit {
   page: number;
   searchKey: string;
   searchValue: string;
+  searchString: string;
   category: any;
 
   constructor(
@@ -96,11 +97,17 @@ export class ProductsPage implements OnInit {
     } else {
       this.page++;
     }
+
     this.loading.present("Loading Products, Please wait");
 
     let searchParam = "";
+
+    if (this.searchString !== undefined) {
+      searchParam += "&search=" + this.searchString;
+    }
+
     if (this.searchKey !== undefined && this.searchValue !== undefined) {
-      searchParam = "&" + this.searchKey + "=" + this.searchValue;
+      searchParam += "&" + this.searchKey + "=" + this.searchValue;
     }
 
     this.WooCommerce.getAsync("products" + "?page=" + this.page + searchParam)
@@ -130,7 +137,12 @@ export class ProductsPage implements OnInit {
       });
   };
 
-  mapImage(image) {
+  searchTheString = (event) => {
+    this.searchString = event.target.value;
+    this.loadMoreProducts(null);
+  };
+
+  mapImage = (image) => {
     let imagePath = "";
 
     if (image === undefined) {
@@ -153,9 +165,9 @@ export class ProductsPage implements OnInit {
     }
 
     return imagePath;
-  }
+  };
 
-  openProductPage(product) {
+  openProductPage = (product) => {
     this.navCtrl.navigateForward("/tabs/product-details/" + product);
-  }
+  };
 }
