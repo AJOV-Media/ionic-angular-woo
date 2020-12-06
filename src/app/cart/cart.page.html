@@ -11,5 +11,10 @@
 <ion-footer>
   <ion-toolbar>
     <ion-title> Total: ${{ totalPrice.toFixed(2) }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary"  [routerLink]="['/tabs/checkout']">
+        Checkout
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-footer>
