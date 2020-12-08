@@ -1,6 +1,171 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title> Checkout </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Billing</ion-card-title>
+      <ion-card-subtitle>WooCommerce Billing</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item-divider color="danger"> Billing Details </ion-item-divider>
+
+        <ion-item>
+          <ion-label>Address Line 1 </ion-label>
+          <ion-textarea
+            type="text"
+            maxlength="80"
+            [(ngModel)]="newOrder.billing_address.address_1"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Address Line 2 </ion-label>
+          <ion-textarea
+            type="text"
+            maxlength="80"
+            [(ngModel)]="newOrder.billing_address.address_2"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Country </ion-label>
+          <ion-select [(ngModel)]="newOrder.billing_address.country">
+            <ion-select-option value="PH">Philippines</ion-select-option>
+            <ion-select-option value="JP">Japan</ion-select-option>
+            <ion-select-option value="US">USA</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>States </ion-label>
+          <ion-select [(ngModel)]="newOrder.billing_address.state">
+            <ion-select-option value="manila">Manila</ion-select-option>
+            <ion-select-option value="qc">QC</ion-select-option>
+            <ion-select-option value="sjdm">SJDM</ion-select-option>
+            <ion-select-option value="samar">Samar</ion-select-option>
+            <ion-select-option value="cebu">Cebu</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>City </ion-label>
+          <ion-input
+            type="text"
+            [(ngModel)]="newOrder.billing_address.city"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Postal Code </ion-label>
+          <ion-input
+            type="number"
+            [(ngModel)]="newOrder.billing_address.postcode"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Phone </ion-label>
+          <ion-input
+            type="tel"
+            [(ngModel)]="newOrder.billing_address.phone"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Same Shipping Details? </ion-label>
+          <ion-checkbox (ionChange)="setBillingToShipping()"></ion-checkbox>
+        </ion-item>
+
+        <ion-item-divider color="danger" *ngIf="!billing_shipping_same">
+          Shipping Details
+        </ion-item-divider>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>Address Line 1 </ion-label>
+          <ion-textarea
+            type="text"
+            maxlength="80"
+            [(ngModel)]="newOrder.shipping.address_1"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>Address Line 2 </ion-label>
+          <ion-textarea
+            type="text"
+            maxlength="80"
+            [(ngModel)]="newOrder.shipping.address_2"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>Country </ion-label>
+          <ion-select [(ngModel)]="newOrder.shipping.country">
+            <ion-select-option value="PH">Philippines</ion-select-option>
+            <ion-select-option value="JP">Japan</ion-select-option>
+            <ion-select-option value="US">USA</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>States </ion-label>
+          <ion-select [(ngModel)]="newOrder.shipping.state">
+            <ion-select-option value="manila">Manila</ion-select-option>
+            <ion-select-option value="qc">QC</ion-select-option>
+            <ion-select-option value="sjdm">SJDM</ion-select-option>
+            <ion-select-option value="samar">Samar</ion-select-option>
+            <ion-select-option value="cebu">Cebu</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>City </ion-label>
+          <ion-input
+            type="text"
+            [(ngModel)]="newOrder.shipping.city"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>Postal Code </ion-label>
+          <ion-input
+            type="number"
+            [(ngModel)]="newOrder.shipping.postcode"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!billing_shipping_same">
+          <ion-label>Phone </ion-label>
+          <ion-input
+            type="tel"
+            [(ngModel)]="newOrder.shipping.phone"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      shape="round"
+      expand="full"
+      fill="solid"
+      color="danger"
+      (click)="placeOrder()"
+    >
+      <ion-icon name="person-add"></ion-icon>
+      <label> &nbsp; Place Order</label>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
